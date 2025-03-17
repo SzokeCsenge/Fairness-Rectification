@@ -6,5 +6,11 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "deeplake>=4.1.11",
+    "jupyter>=1.1.1",
+    "numpy==1.26.4",
+    "pandas>=2.2.3",
     "pydrive2>=1.21.3",
+    "scikit-learn>=1.6.1",
+    "torch==2.2.2",
+    "torchvision>=0.17.2",
 ]
