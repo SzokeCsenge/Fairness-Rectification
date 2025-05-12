@@ -2,8 +2,7 @@
 
 import torch
 from torch.cuda.amp import autocast, GradScaler
-from torchmetrics.classification import MulticlassAccuracy
-from torchmetrics.aggregation import Mean
+from torcheval.metrics import Mean, MulticlassAccuracy
 from tqdm import tqdm
 
 

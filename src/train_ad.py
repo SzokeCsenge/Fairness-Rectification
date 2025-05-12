@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
 from torch.cuda.amp import autocast, GradScaler
-from torchmetrics.classification import MulticlassAccuracy
-from torchmetrics.aggregation import Mean
+from torcheval.metrics import Mean, MulticlassAccuracy
 from tqdm import tqdm
 import pandas as pd
-from .config import AGE_GROUP_DICT
+from config import AGE_GROUP_DICT
 
 
 def train_adversarial(model, train_dataloader, val_dataloader, device, epochs=10):

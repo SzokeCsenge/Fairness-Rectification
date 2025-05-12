@@ -171,3 +171,8 @@ cython_debug/
 .pypirc
 
 Data/
+
+uvx
+uv
+env
+env.fish
