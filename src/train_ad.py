@@ -7,15 +7,16 @@ import pandas as pd
 from config import AGE_GROUP_DICT
 
 
-def train_adversarial(model, train_dataloader, val_dataloader, device, epochs=10):
-    optimizer = torch.optim.AdamW(model.parameters(), lr=5e-5, weight_decay=0.007)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
+def train_adversarial(model, train_dataloader, val_dataloader, device, learning_rate=0.001, weight_decay=0.001, step_size=10, epochs=10):
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=step_size, gamma=0.5)
 
     criterion_task = nn.CrossEntropyLoss()
     criterion_adv = nn.CrossEntropyLoss()
     scaler = GradScaler()
 
     best_val_acc = 0.0
+    best_adv_acc = 0.0
     best_model_state = None
 
     for epoch in range(epochs):
@@ -33,7 +34,7 @@ def train_adversarial(model, train_dataloader, val_dataloader, device, epochs=10
 
             optimizer.zero_grad()
             with autocast():
-                task_outputs, adv_outputs = model(images)
+                task_outputs, adv_outputs = model(images, labels=labels)
                 task_loss = criterion_task(task_outputs, labels)
                 adv_loss = criterion_adv(adv_outputs, age_group_tensor)
                 loss = task_loss + adv_loss
@@ -72,7 +73,7 @@ def train_adversarial(model, train_dataloader, val_dataloader, device, epochs=10
                                                 dtype=torch.long).to(device)
 
                 with autocast():
-                    task_outputs, adv_outputs = model(images)
+                    task_outputs, adv_outputs = model(images, labels=labels)
                     t_loss = criterion_task(task_outputs, labels)
                     a_loss = criterion_adv(adv_outputs, age_group_tensor)
 
@@ -86,15 +87,19 @@ def train_adversarial(model, train_dataloader, val_dataloader, device, epochs=10
         Task Acc: {val_task_acc.compute().item() * 100:.2f}%, Adv Acc: {val_adv_acc.compute().item() * 100:.2f}%
         """)
         val_acc = val_task_acc.compute().item() * 100
+        adv_acc = val_adv_acc.compute().item() * 100
 
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             best_model_state = model.state_dict()
             print("New best model found!")
 
+        if adv_acc > best_adv_acc:
+            best_adv_acc = adv_acc
+
         scheduler.step()
 
-    return best_model_state, best_val_acc
+    return best_model_state, best_val_acc, best_adv_acc
 
 
 def test_adversarial(model, test_dataloader, device, save_path="adversarial_results.csv"):
@@ -116,7 +121,7 @@ def test_adversarial(model, test_dataloader, device, save_path="adversarial_resu
                                             dtype=torch.long).to(device)
 
             with autocast():
-                task_outputs, adv_outputs = model(images)
+                task_outputs, adv_outputs = model(images, labels=labels)
                 task_loss = criterion_task(task_outputs, labels)
                 adv_loss = criterion_adv(adv_outputs, age_group_tensor)
 

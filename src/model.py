@@ -8,8 +8,8 @@ def get_model(num_classes=7, pretrained=True):
     model.fc = nn.Linear(model.fc.in_features, num_classes)
     return model
 
-def get_training_setup(model, lr=0.01, wd=1e-3):
+def get_training_setup(model, lr=0.01, wd=1e-3, ss=8):
     criterion = nn.CrossEntropyLoss()
     optimizer = AdamW(model.parameters(), lr=lr, weight_decay=wd)
-    scheduler = StepLR(optimizer, step_size=8, gamma=0.5)
+    scheduler = StepLR(optimizer, step_size=ss, gamma=0.5)
     return criterion, optimizer, scheduler

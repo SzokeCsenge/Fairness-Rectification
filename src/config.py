@@ -2,14 +2,14 @@ import os
 
 # BASE_SKIN_DIR = "/Users/csengeszoke/programming/Thesis/Code/Fairness-Rectification/Data"
 
-BASE_SKIN_DIR = "/scratch/s5139090/Data"
+BASE_SKIN_DIR = "/scratch/s5139090/Fairness-Rectification/Data"
 
 METADATA_PATH = os.path.join(BASE_SKIN_DIR, "HAM10000_metadata.csv")
 
 # Output directory for figures or model checkpoints
 # PLOT_DIR = "/Users/csengeszoke/programming/Thesis/Code/Fairness-Rectification/Data"
 
-PLOT_DIR = "/scratch/s5139090/Outputs"
+PLOT_DIR = "/scratch/s5139090/Fairness-Rectification/Outputs"
 
 LESION_TYPE_DICT = {
     'nv': 'Melanocytic nevi',

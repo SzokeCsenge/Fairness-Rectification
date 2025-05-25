@@ -1,0 +1,216 @@
+
+
+=== FAIRNESS COMPARISON ===
+
+>> Fairness Metrics for Baseline model:
+
+=== Class 0 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.07911
+FPR Variance: 0.00019
+
+=== Class 1 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.01758
+FPR Variance: 0.00024
+
+=== Class 2 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.04359
+FPR Variance: 0.00030
+
+=== Class 3 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.07605
+FPR Variance: 0.00000
+
+=== Class 4 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00041
+FPR Variance: 0.01293
+
+=== Class 5 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.04879
+FPR Variance: 0.00069
+
+=== Class 6 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.01489
+FPR Variance: 0.00000
+
+=== Overall Mean Absolute Deviation ===
+TPR = 0.15115, FPR = 0.02503
+
+=== Weighted Overall Mean Absolute Deviation ===
+TPR = 0.06824, FPR = 0.07564
+
+>> Fairness Metrics for Reweighting model:
+
+=== Class 0 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.11973
+FPR Variance: 0.00037
+
+=== Class 1 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.02674
+FPR Variance: 0.00014
+
+=== Class 2 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.04864
+FPR Variance: 0.00023
+
+=== Class 3 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.07333
+FPR Variance: 0.00002
+
+=== Class 4 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00077
+FPR Variance: 0.00584
+
+=== Class 5 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00857
+FPR Variance: 0.00070
+
+=== Class 6 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.01489
+FPR Variance: 0.00001
+
+=== Overall Mean Absolute Deviation ===
+TPR = 0.15017, FPR = 0.02051
+
+=== Weighted Overall Mean Absolute Deviation ===
+TPR = 0.06500, FPR = 0.05037
+
+>> Fairness Metrics for Equalized Odds model:
+
+=== Class 0 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.03567
+FPR Variance: 0.00052
+
+=== Class 1 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.07040
+FPR Variance: 0.00021
+
+=== Class 2 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.03084
+FPR Variance: 0.00106
+
+=== Class 3 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00444
+FPR Variance: 0.00000
+
+=== Class 4 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00025
+FPR Variance: 0.01033
+
+=== Class 5 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.01430
+FPR Variance: 0.00020
+
+=== Class 6 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.01987
+FPR Variance: 0.00003
+
+=== Overall Mean Absolute Deviation ===
+TPR = 0.11881, FPR = 0.02430
+
+=== Weighted Overall Mean Absolute Deviation ===
+TPR = 0.05480, FPR = 0.06612
+
+>> Fairness Metrics for Adversarial model:
+
+=== Class 0 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.08025
+FPR Variance: 0.00037
+
+=== Class 1 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.11147
+FPR Variance: 0.00057
+
+=== Class 2 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.05252
+FPR Variance: 0.00023
+
+=== Class 3 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.06222
+FPR Variance: 0.00001
+
+=== Class 4 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00023
+FPR Variance: 0.00712
+
+=== Class 5 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.00593
+FPR Variance: 0.00028
+
+=== Class 6 (vs. Rest) ===
+Equalized Odds:
+TPR Variance: 0.02584
+FPR Variance: 0.00001
+
+=== Overall Mean Absolute Deviation ===
+TPR = 0.15071, FPR = 0.02212
+
+=== Weighted Overall Mean Absolute Deviation ===
+TPR = 0.05902, FPR = 0.05810
+
+###############################################################################
+Hábrók Cluster
+Job 17592017 for user s5139090
+Finished at: Sun May 25 20:12:06 CEST 2025
+
+Job details:
+============
+
+Job ID                         : 17592017
+Name                           : job_comparison.sh
+User                           : s5139090
+Partition                      : gpushort
+Nodes                          : v100v2gpu17
+Number of Nodes                : 1
+Cores                          : 8
+Number of Tasks                : 1
+State                          : COMPLETED  
+Submit                         : 2025-05-25T20:10:41
+Start                          : 2025-05-25T20:11:58
+End                            : 2025-05-25T20:12:02
+Reserved walltime              : 00:05:00
+Used walltime                  : 00:00:04
+Used CPU time                  : 00:00:03 (Efficiency:  8.92%)
+% User (Computation)           : 69.37%
+% System (I/O)                 : 30.60%
+Total memory reserved          : 1000M
+Maximum memory used            : 0.00 
+Requested GPUs                 : 1
+Allocated GPUs                 : v100=1
+Max GPU utilization            : 0%
+Max GPU memory used            : 0.00 
+
+Acknowledgements:
+=================
+
+Please see this page for information about acknowledging Hábrók in your publications:
+
+https://wiki.hpc.rug.nl/habrok/introduction/scientific_output
+
+################################################################################

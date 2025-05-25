@@ -1,5 +1,14 @@
 from sklearn.model_selection import train_test_split
 from torchvision import transforms as T
+import random
+import numpy as np
+import torch
+
+def set_seed(seed=42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
 
 def stratified_split(df):
     lesion_to_label = df.groupby("lesion_id")["labels"].first()

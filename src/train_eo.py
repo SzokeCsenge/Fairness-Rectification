@@ -11,11 +11,15 @@ def train_equalized_odds(model, dataloaders, criterion, optimizer, scheduler, ag
     best_val_acc = 0.0
     best_model_state = None
 
+    accuracy_counter = MulticlassAccuracy(num_classes=7).to(device)
+    loss_counter = Mean().to(device)
+    val_acc_counter = MulticlassAccuracy(num_classes=7).to(device)
+
     for epoch in range(epochs):
         model.train()
         train_loader = tqdm(dataloaders['train'], desc=f"Epoch {epoch+1}/{epochs}")
-        accuracy_counter = MulticlassAccuracy(num_classes=7).to(device)
-        loss_counter = Mean().to(device)
+        loss_counter.reset()
+        accuracy_counter.reset()
 
         for images, labels, _, age_group, _ in train_loader:
             age_group_indices = [age_group_mapping[age] for age in age_group]
@@ -41,7 +45,7 @@ def train_equalized_odds(model, dataloaders, criterion, optimizer, scheduler, ag
 
         # Validation
         model.eval()
-        val_acc_counter = MulticlassAccuracy(num_classes=7).to(device)
+        val_acc_counter.reset()
 
         with torch.no_grad():
             for images, labels, _, _, _ in dataloaders['val']:

@@ -5,7 +5,7 @@ from plots import plot_age_distribution, plot_class_distribution, plot_diagnosis
 from utils import stratified_split
 from torch.utils.data import DataLoader
 from costum_image import CustomImageDataset
-from utils import train_transform, eval_transform
+from utils import train_transform, eval_transform, set_seed
 from model import get_model, get_training_setup
 from train import train_model
 from evaluation import evaluate_model
@@ -19,6 +19,7 @@ from fairness_metrics import calculate_fairness_metrics
 
 
 def main():
+    set_seed(42)
     # Load metadata and image paths
     metadata_df = load_metadata()
 
@@ -118,7 +119,7 @@ def main():
     print("\nStarting Adversarial Debiasing Training...")
     adv_model = AdversarialDebiasingModel(num_classes=7, num_sensitive=5, lambda_adv=1.0).to(device)
 
-    best_adv_state, best_adv_val_acc = train_adversarial(adv_model, train_dataloader, val_dataloader, device, epochs=5)
+    best_adv_state, best_adv_val_acc, _ = train_adversarial(adv_model, train_dataloader, val_dataloader, device, epochs=5)
 
     adv_model_path = os.path.join(PLOT_DIR, f"adversarial_model_{best_adv_val_acc:.2f}.pt")
     torch.save(best_adv_state, adv_model_path)

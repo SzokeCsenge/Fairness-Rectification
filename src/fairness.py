@@ -32,11 +32,11 @@ class WeightedCrossEntropyLoss(nn.Module):
         loss = self.criterion(outputs, targets)
         return torch.mean(loss * weights)
     
-def get_reweighted_training_setup(model, train_df, lr=0.01, wd=1e-3):
+def get_reweighted_training_setup(model, train_df, lr=0.01, wd=1e-3, ss=8):
     weights_dict = compute_reweighing_weights(train_df, label_col="labels", sensitive_col="age_group")
     criterion = WeightedCrossEntropyLoss()
     optimizer = AdamW(model.parameters(), lr=lr, weight_decay=wd)
-    scheduler = StepLR(optimizer, step_size=8, gamma=0.5)
+    scheduler = StepLR(optimizer, step_size=ss, gamma=0.5)
     return criterion, optimizer, scheduler, weights_dict
     
 class EqualizedOddsLoss(nn.Module):
@@ -76,10 +76,10 @@ class EqualizedOddsLoss(nn.Module):
         fairness_penalty = calc_group_mse(tpr_matrix) + calc_group_mse(fpr_matrix)
         return ce_loss + self.lambda_fairness * fairness_penalty
 
-def get_equalized_odds_training_setup(model, lr=0.01, wd=1e-3, lambda_fairness=0.1):
+def get_equalized_odds_training_setup(model, lr=0.01, wd=1e-3, ss=8, lambda_fairness=0.1):
     criterion = EqualizedOddsLoss(num_classes=7, lambda_fairness=lambda_fairness)
     optimizer = AdamW(model.parameters(), lr=lr, weight_decay=wd)
-    scheduler = StepLR(optimizer, step_size=8, gamma=0.5)
+    scheduler = StepLR(optimizer, step_size=ss, gamma=0.5)
     return criterion, optimizer, scheduler
 
 class GradientReversalFunction(torch.autograd.Function):
@@ -110,9 +110,43 @@ class AdversarialDebiasingModel(nn.Module):
             nn.Linear(128, num_sensitive)
         )
 
-    def forward(self, x):
+    def forward(self, x, labels=None):
         features = self.backbone(x)
         task_output = self.task_head(features)
         rev_features = GradientReversalFunction.apply(features, self.lambda_adv)
         adv_output = self.adv_head(rev_features)
         return task_output, adv_output
+
+    
+class AdversarialDebiasingModel2(nn.Module):
+    def __init__(self, num_classes=7, num_sensitive=5, lambda_adv=1.0):
+        super(AdversarialDebiasingModel2, self).__init__()
+        self.lambda_adv = lambda_adv
+
+        self.backbone = models.resnet18(pretrained=True)
+        num_ftrs = self.backbone.fc.in_features
+        self.backbone.fc = nn.Identity()
+
+        self.task_head = nn.Linear(num_ftrs, num_classes)
+
+        self.adv_head = nn.Sequential(
+            nn.Linear(num_classes * 2, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_sensitive)
+        )
+
+    def forward(self, x, labels=None):
+        features = self.backbone(x)
+        task_logits = self.task_head(features)
+
+        # EO: pass [ŷ, y] to adversary
+        if labels is not None:
+            y_onehot = F.one_hot(labels, num_classes=task_logits.shape[1]).float()
+            y_hat = F.softmax(task_logits, dim=1)  # or use logits directly
+            adv_input = torch.cat([y_hat, y_onehot], dim=1)
+            rev_adv_input = GradientReversalFunction.apply(adv_input, self.lambda_adv)
+            adv_output = self.adv_head(rev_adv_input)
+        else:
+            adv_output = None
+
+        return task_logits, adv_output
