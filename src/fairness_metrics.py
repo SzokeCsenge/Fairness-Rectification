@@ -57,8 +57,11 @@ def calculate_fairness_metrics(df, num_classes=7, group_col="Age_Group"):
 
         print("Equalized Odds:")
 
-        print(f"TPR Variance: {var_tpr:.5f}")
-        print(f"FPR Variance: {var_fpr:.5f}")
+        #print(f"TPR Variance: {var_tpr:.5f}")
+        #print(f"FPR Variance: {var_fpr:.5f}")
+
+        print(f"TPR dif: {mean_diff_tpr:.5f}")
+        print(f"FPR dif: {mean_diff_fpr:.5f}")
     
     avg_tpr_dev= np.mean(tpr_dev_list)
     avg_fpr_dev = np.mean(fpr_dev_list)

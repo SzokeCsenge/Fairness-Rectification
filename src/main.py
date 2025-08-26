@@ -25,21 +25,7 @@ def main():
 
     # Create the fairness DataFrame with additional demographic attributes
     fairness_df = create_fairness_df(metadata_df)
-
-    # Show basic information about the dataset
-    """print("Fairness DataFrame created:")
-    print(fairness_df.head())
-    print("\nClass distribution:")
-    print(fairness_df['cell_type'].value_counts())
-    print("\nAge group distribution:")
-    print(fairness_df['age_group'].value_counts())"""
-
-    # plot_age_distribution(fairness_df)
-    # plot_class_distribution(fairness_df)
-    # plot_diagnosis_by_age(fairness_df)
-
     train_df, valid_df, test_df = stratified_split(fairness_df)
-    # print(f"\nSplit complete: Train={len(train_df)}, Val={len(valid_df)}, Test={len(test_df)}")
 
     train_dataset = CustomImageDataset(train_df, transform=train_transform)
     val_dataset = CustomImageDataset(valid_df, transform=eval_transform)

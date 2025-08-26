@@ -1,0 +1,75 @@
+/scratch/s5139090/Fairness-Rectification/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/scratch/s5139090/Fairness-Rectification/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[0/2040] Age Group: 70+ | Consistency: 0.1829
+[100/2040] Age Group: 40–55 | Consistency: 0.2632
+[200/2040] Age Group: 70+ | Consistency: 0.3522
+[300/2040] Age Group: 70+ | Consistency: 0.2939
+[400/2040] Age Group: 55–70 | Consistency: 0.2929
+[500/2040] Age Group: 55–70 | Consistency: 0.1739
+[600/2040] Age Group: 40–55 | Consistency: 0.3334
+[700/2040] Age Group: 55–70 | Consistency: 0.2654
+[800/2040] Age Group: 40–55 | Consistency: 0.2779
+[900/2040] Age Group: 40–55 | Consistency: 0.3595
+[1000/2040] Age Group: 25-40 | Consistency: 0.3051
+[1100/2040] Age Group: 25-40 | Consistency: 0.3201
+[1200/2040] Age Group: 40–55 | Consistency: 0.2419
+[1300/2040] Age Group: 25-40 | Consistency: 0.2841
+[1400/2040] Age Group: 55–70 | Consistency: 0.1747
+[1500/2040] Age Group: 40–55 | Consistency: 0.3305
+[1600/2040] Age Group: 40–55 | Consistency: 0.1120
+[1700/2040] Age Group: 25-40 | Consistency: 0.3231
+[1800/2040] Age Group: 40–55 | Consistency: 0.1883
+[1900/2040] Age Group: 70+ | Consistency: 0.3683
+[2000/2040] Age Group: 70+ | Consistency: 0.2301
+
+--- Average Consistency by Age Group ---
+Age Group 0–25: 0.2352
+Age Group 25-40: 0.2509
+Age Group 40–55: 0.2667
+Age Group 55–70: 0.2560
+Age Group 70+: 0.2487
+
+Overall Average Consistency: 0.2564
+
+###############################################################################
+Hábrók Cluster
+Job 17975401 for user s5139090
+Finished at: Wed Jun 18 16:42:45 CEST 2025
+
+Job details:
+============
+
+Job ID                         : 17975401
+Name                           : grad_job2.sh
+User                           : s5139090
+Partition                      : gpushort
+Nodes                          : v100v2gpu16
+Number of Nodes                : 1
+Cores                          : 8
+Number of Tasks                : 1
+State                          : COMPLETED  
+Submit                         : 2025-06-18T16:39:20
+Start                          : 2025-06-18T16:41:21
+End                            : 2025-06-18T16:42:41
+Reserved walltime              : 00:30:00
+Used walltime                  : 00:01:20
+Used CPU time                  : 00:05:42 (Efficiency: 53.42%)
+% User (Computation)           : 98.61%
+% System (I/O)                 :  1.39%
+Total memory reserved          : 3000M
+Maximum memory used            : 637.59M
+Requested GPUs                 : 1
+Allocated GPUs                 : v100=1
+Max GPU utilization            : 36%
+Max GPU memory used            : 684.00M
+
+Acknowledgements:
+=================
+
+Please see this page for information about acknowledging Hábrók in your publications:
+
+https://wiki.hpc.rug.nl/habrok/introduction/scientific_output
+
+################################################################################
